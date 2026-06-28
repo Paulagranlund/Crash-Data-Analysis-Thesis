@@ -1,0 +1,25 @@
+# Track 1 (classification)
+torch
+transformers>=4.46
+datasets
+captum
+
+# Track 2 (BERTopic)
+bertopic
+umap-learn
+hdbscan
+sentence-transformers
+gensim
+mteb
+
+# shared
+scikit-learn
+pandas
+numpy
+scipy
+matplotlib
+seaborn
+ruptures
+statsmodels
+openpyxl
+pyarrow

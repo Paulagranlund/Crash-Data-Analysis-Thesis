@@ -1,15 +1,13 @@
 # Crash-Narratives NLP
 
-Information extraction and pattern discovery from **Danish police-written crash
-narratives**, using domain-specific language models and semantic topic
+Information extraction and pattern discovery from Danish police-written crash
+narratives, using domain-specific language models and semantic topic
 modelling. This is the code accompanying the DTU master's thesis *Information
 Extraction and Pattern Discovery of Danish Police-Written Crash Narratives Using
 Domain-Specific Language Models and Semantic Topic Modelling*.
 
-The narratives come from the Vejdirektoratet (VD) crash database, a free-text
-field written by police officers alongside the structured crash record. The
-project asks what those narratives reveal that the structured fields do not, and
-approaches it from two directions.
+The narratives, a free-text field written by police officers, and structured data has been accessed from Vejman.dk. 
+The project asks what the narratives reveal that the structured fields do not, and approaches it from two directions.
 
 ## Overview
 
@@ -22,7 +20,7 @@ attribution shows which words drive each prediction, so the model's behaviour ca
 be inspected rather than taken on trust.
 
 **Track 2 — semantic topic modelling.** A BERTopic pipeline
-(`KennethTM/MiniLM-L6-danish-encoder` embeddings, UMAP, HDBSCAN), run both fully
+(`KennethTM/MiniLM-L6-danish-encoder` embeddings, UMAP, HDBSCAN, and c-TF-IDF), run both fully
 unsupervised and semi-supervised, discovers latent structure in the narratives.
 The standout finding, an active hit-and-run cluster with no corresponding
 structured VD field, lives in the Track 2 case studies.

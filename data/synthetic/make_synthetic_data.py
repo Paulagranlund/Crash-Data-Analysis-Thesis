@@ -22,7 +22,7 @@ for p in (REPO_ROOT, os.path.join(REPO_ROOT, "src")):
 
 SYNTH = os.path.join(REPO_ROOT, "data", "synthetic")
 SEED = 42
-N_ACC = 400  # number of synthetic accidents
+N_ACC = 1200  # number of synthetic accidents
 
 rng = np.random.default_rng(SEED)
 
@@ -47,7 +47,7 @@ def main():
         ["Påkørsel bagfra", "Eneuheld", "Frontalkollision", "Krydsningsuheld",
          "Fodgænger", "Parkeret køretøj"], size=N_ACC)
     sit_codes = rng.choice([140, 201, 312, 410, 510, 660], size=N_ACC)
-    report_cat = rng.choice(["Pskduh", "Matskuh", "Eksuheld"], size=N_ACC)
+    report_cat = rng.choice(["Anmsuh", "Exuh", "Pskduh", "Mskduh"], size=N_ACC)
     narratives = [
         " ".join(rng.choice(
             ["bil", "kørte", "ind", "i", "vognbane", "bremsede", "holdt", "stille",
@@ -90,7 +90,7 @@ def main():
             vd_rows.append({
                 "UHELDS_ID": aid,
                 "KODE_UHELDSSITUATION": int(rng.choice([140, 201, 312, 410])),
-                "KODE_UHELDSART": rng.choice(["Pskduh", "Matskuh"]),
+                "KODE_UHELDSART": rng.choice(["Anmsuh", "Exuh", "Pskduh", "Mskduh"]),
                 "VEJR": rng.choice(["Tør", "Regn", "Sne", "Glat"]),
                 "VEJKATEGORI": rng.choice(["Hldv", "Kvej", "Bvej", "Mvej"]),
                 "KRYDS_UHELD": rng.choice(["Ja", "Nej"]),
@@ -129,10 +129,35 @@ def main():
 
     # ── BERTopic outputs per configuration (written to results/, not data/) ───
     from config import RESULTS_SEMI_DIR
-    for cfg in ["unsupervised", "main_0.3", "report_accident_0.25", "all_0.2"]:
+
+    def make_topics(size):
+        topics = rng.integers(-1, 41, size=size)
+        # Ensure Topic 11 exists with enough rows for case-study plots and tests.
+        topic11_idx = rng.choice(size, size=max(80, size // 12), replace=False)
+        topics[topic11_idx] = 11
+        return topics
+
+    topic_configs = [
+        "unsupervised",
+        "main_0.3",
+        "report_accident_0.25",
+        "all_0.1",
+        "all_0.15",
+        "all_0.2",
+        "all_0.25",
+        "all_0.3",
+        "main_0.1",
+        "main_0.15",
+        "main_0.2",
+        "main_0.25",
+    ]
+    main_topic11_idx = None
+    for cfg in topic_configs:
         d = os.path.join(RESULTS_SEMI_DIR, cfg)
         os.makedirs(d, exist_ok=True)
-        topics = rng.integers(-1, 41, size=n_clean)  # -1 outlier .. 40
+        topics = make_topics(n_clean)
+        if cfg == "main_0.3":
+            main_topic11_idx = np.flatnonzero(topics == 11)
         doc = pd.DataFrame({
             "document_index": np.arange(n_clean),
             "assigned_topic": topics,
@@ -144,6 +169,27 @@ def main():
                 .reset_index(name="Count").sort_values("Topic"))
         info["Name"] = info["Topic"].apply(lambda t: f"{t}_synthetic_topic")
         info.to_csv(os.path.join(d, "topic_info.csv"), index=False)
+
+        topic_words = {
+            str(t): [[f"synthetic_{int(t)}_{i}", round(float(rng.uniform(0.05, 0.9)), 4)] for i in range(10)]
+            for t in sorted(set(topics)) if t != -1
+        }
+        with open(os.path.join(d, "topic_words.json"), "w", encoding="utf-8") as f:
+            import json
+            json.dump(topic_words, f, ensure_ascii=False, indent=2)
+
+    if main_topic11_idx is not None and len(main_topic11_idx):
+        hyphen_idx = main_topic11_idx[::3]
+        space_idx = main_topic11_idx[1::3]
+        base.loc[hyphen_idx, "UHELDSTEKST"] = [
+            "personbil påkørte parkeret bil og fortsatte som fuh-flugt ukendt fører"
+            for _ in hyphen_idx
+        ]
+        base.loc[space_idx, "UHELDSTEKST"] = [
+            "fører ramte cyklist og forlod stedet som fuh flugt uden oplysninger"
+            for _ in space_idx
+        ]
+        _write_header2(base, os.path.join(SYNTH, "base", "base_2000_2025.xlsx"))
 
 
     # ── one-off: drunk-driving flag file (read with default header, then [2:]) ─

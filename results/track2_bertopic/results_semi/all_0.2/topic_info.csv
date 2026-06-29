@@ -1,43 +1,5 @@
-Topic,Count,Name
--1,5,-1_synthetic_topic
-0,4,0_synthetic_topic
-1,13,1_synthetic_topic
-2,8,2_synthetic_topic
-3,5,3_synthetic_topic
-4,9,4_synthetic_topic
-5,9,5_synthetic_topic
-6,13,6_synthetic_topic
-7,7,7_synthetic_topic
-8,16,8_synthetic_topic
-9,12,9_synthetic_topic
-10,9,10_synthetic_topic
-11,7,11_synthetic_topic
-12,9,12_synthetic_topic
-13,9,13_synthetic_topic
-14,6,14_synthetic_topic
-15,10,15_synthetic_topic
-16,10,16_synthetic_topic
-17,12,17_synthetic_topic
-18,11,18_synthetic_topic
-19,9,19_synthetic_topic
-20,11,20_synthetic_topic
-21,4,21_synthetic_topic
-22,9,22_synthetic_topic
-23,12,23_synthetic_topic
-24,9,24_synthetic_topic
-25,10,25_synthetic_topic
-26,6,26_synthetic_topic
-27,12,27_synthetic_topic
-28,11,28_synthetic_topic
-29,10,29_synthetic_topic
-30,6,30_synthetic_topic
-31,16,31_synthetic_topic
-32,11,32_synthetic_topic
-33,11,33_synthetic_topic
-34,10,34_synthetic_topic
-35,8,35_synthetic_topic
-36,10,36_synthetic_topic
-37,13,37_synthetic_topic
-38,10,38_synthetic_topic
-39,11,39_synthetic_topic
-40,7,40_synthetic_topic
+Topic,Count,Name,Representation,Representative_Docs
+0,672,0_væltede vognbane_vognbane bremsede_vognbane væltede_bremsede vognbane,"['væltede vognbane', 'vognbane bremsede', 'vognbane væltede', 'bremsede vognbane', 'holdt vognbane', 'vognbane stille', 'vognbane holdt', 'vognbane flugtede', 'stille vognbane', 'vognbane ukendt']","['stille kørte ukendt holdt væltede væltede vognbane påkørte stille bremsede vognbane', 'vognbane stille væltede påkørte vognbane væltede holdt cyklist flugtede bremsede', 'væltede bremsede holdt flugtede holdt stille ind fører væltede vognbane cyklist']"
+1,444,1_flugtede cyklist_cyklist flugtede_cyklist væltede_flugtede væltede,"['flugtede cyklist', 'cyklist flugtede', 'cyklist væltede', 'flugtede væltede', 'væltede cyklist', 'væltede flugtede', 'flugtede vognbane', 'vognbane flugtede', 'cyklist holdt', 'cyklist ukendt']","['ukendt ukendt spiritus spiritus stille fører kørte spiritus ind bremsede i', 'holdt bremsede spiritus stille ukendt stille spiritus ukendt holdt vognbane', 'væltede spiritus påkørte påkørte cyklist væltede stille bremsede spiritus ukendt']"
+2,42,2_ukendt parkeret_parkeret_parkeret fortsatte_flugt ukendt,"['ukendt parkeret', 'parkeret', 'parkeret fortsatte', 'flugt ukendt', 'ukendt', 'flugt', 'fortsatte flugt', 'fortsatte', '', '']","['personbil påkørte parkeret bil og fortsatte som fuh-flugt ukendt fører', 'personbil påkørte parkeret bil og fortsatte som fuh-flugt ukendt fører', 'personbil påkørte parkeret bil og fortsatte som fuh-flugt ukendt fører']"
+3,42,3_ramte cyklist_ramte_cyklist_cyklist forlod,"['ramte cyklist', 'ramte', 'cyklist', 'cyklist forlod', 'flugt', 'oplysninger ramte', 'forlod flugt', '', '', '']","['fører ramte cyklist og forlod stedet som fuh flugt uden oplysninger', 'fører ramte cyklist og forlod stedet som fuh flugt uden oplysninger', 'fører ramte cyklist og forlod stedet som fuh flugt uden oplysninger']"

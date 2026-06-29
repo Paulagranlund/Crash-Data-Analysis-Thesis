@@ -30,6 +30,12 @@ structured VD field, lives in the Track 2 case studies.
 The two tracks are complementary. The narrative methods enrich and validate the
 structured data; they do not replace it.
 
+> **Important about the committed results:** the data and result files included in
+> this public repository are synthetic stand-ins. Any figures, topic labels,
+> metrics, topic assignments, or case-study outputs produced from them are only
+> examples showing that the code runs. They are **not** the thesis findings and
+> should not be interpreted as crash-safety evidence.
+
 ## 📂 Project structure
 
 ```
@@ -110,7 +116,10 @@ produces output. They stay short because the heavy logic lives in `src/`.
 
 `data/`, `models/` and `results/` are **input and output**. You do not edit them
 by hand; the notebooks read from `data/` and write into `models/` and
-`results/`.
+`results/`. In this public copy, the committed files under `data/synthetic/` and
+`results/` are execution fixtures: they preserve the expected schema and folder
+layout, but their values are randomly generated stand-ins rather than valid
+research results.
 
 ## 🧩 The two tracks
 
@@ -136,9 +145,10 @@ four case studies.
 
 The real narratives come from the VD crash database and are access-restricted, so
 `data/raw/` ships empty and gitignored. Everything runs by default against
-`data/synthetic/`, a set of schema-correct stand-in files with random values, so
-the pipeline executes end to end without the restricted data and without
-producing real findings.
+`data/synthetic/`, a set of schema-correct stand-in files with random values. The
+synthetic files are designed to exercise joins, notebooks, plots, and output
+writers; they are not statistically meaningful. Results generated from these
+files are demonstration outputs, not correct thesis results.
 
 ```bash
 python data/synthetic/make_synthetic_data.py     # (re)generate the stand-ins
@@ -182,13 +192,16 @@ run it top to bottom.
 
 | Step | File | Produces |
 | ---- | ---- | -------- |
-| 1 | `data/synthetic/make_synthetic_data.py` | input data + stand-in topic outputs |
-| 2 | `analysis/track2_bertopic/fit_bertopic_models.ipynb` | real `results_semi/` topic outputs |
-| 3 | any notebook under `analysis/track2_bertopic/` | the analysis itself |
+| 1 | `data/synthetic/make_synthetic_data.py` | schema-correct synthetic input data + stand-in topic outputs |
+| 2 | `analysis/track2_bertopic/fit_bertopic_models.ipynb` | regenerated `results_semi/` topic outputs for whichever data source is configured |
+| 3 | any notebook under `analysis/track2_bertopic/` | analysis outputs for the configured data source |
 
 Step 2 is optional on synthetic data, since step 1 already writes stand-in topic
-outputs so the analysis notebooks run without fitting. Run step 2 to regenerate
-the topic models for real.
+outputs so the analysis notebooks run without fitting. If you run Step 2 while
+`src/config.py` still points at `data/synthetic/`, the regenerated models are
+still synthetic demonstration results. To reproduce the thesis analyses, first
+point `src/config.py` at the restricted real VD data and then regenerate the
+models and downstream outputs.
 
 The notebooks use flat imports (`from analysis_data import ...`); each one begins
 with a short setup cell that puts `src/` on the path automatically, so they run
@@ -201,6 +214,11 @@ correctly from any working directory.
 * **Track 2 topic assignments** → `results/track2_bertopic/results_semi/<config>/`
   (`document_topics.csv`, `topic_info.csv`, `topic_words.json`)
 * **Case-study figures and tables** → written by each notebook into `results/`
+
+When the repository is run with the default synthetic configuration, these
+outputs are placeholders. They confirm that the pipeline executes and that files
+are written in the expected format; they do not contain the validated numbers,
+figures, clusters, or conclusions from the thesis.
 
 ## 📦 `src/` module reference
 
@@ -224,5 +242,8 @@ correctly from any working directory.
 ## A note on data
 
 The real crash narratives are restricted and are not included. The synthetic
-dataset mirrors the real schema column for column, so the code runs unchanged;
-only the paths in `src/config.py` differ between the two.
+dataset mirrors the real schema closely enough for the code to run unchanged;
+only the paths in `src/config.py` differ between the two. Because the synthetic
+values are random and intentionally artificial, any “results” shown from the
+default repository state are examples of file structure and workflow only, not
+correct empirical findings.

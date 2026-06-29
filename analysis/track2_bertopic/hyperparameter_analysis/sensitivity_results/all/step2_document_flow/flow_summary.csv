@@ -1,0 +1,5 @@
+transition,stayed_pct,changed_pct,to_outlier_pct,rescued_pct,n_clean_renaming,n_outlier_rescue,n_high_outlier,n_mixed
+0.1 → 0.15,3.1,92.6,2.1,2.2,0,0,0,41
+0.15 → 0.2,4.2,92.5,1.3,1.9,0,0,0,41
+0.2 → 0.25,2.9,93.4,2.2,1.5,0,0,0,41
+0.25 → 0.3,3.9,91.8,2.1,2.2,0,0,0,41

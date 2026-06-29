@@ -83,7 +83,15 @@ def _load_base_with_topics(configs):
                "report_accident_0.25": "topic_acc_cat_0_25",
                "all_0.2": "topic_all_0_2"}[cfg]
         df[col] = doc["assigned_topic"].values
-        df[f"prob_{col}"] = doc["assigned_topic_probability"].values
+        prob_col = f"prob_{col}"
+        df[prob_col] = doc["assigned_topic_probability"].values
+        legacy_prob_cols = {
+            "topic_main_0_3": "probability_main_0_3",
+            "topic_acc_cat_0_25": "probability_acc_cat_0_25",
+            "topic_all_0_2": "probability_all_0_2",
+        }
+        if col in legacy_prob_cols:
+            df[legacy_prob_cols[col]] = df[prob_col]
 
     return df
 
@@ -139,6 +147,12 @@ def _build_accident(config):
     df_type = df_type.reindex(columns=["element_1_type", "element_2_type", "element_3_type"]).reset_index()
 
     df = df.merge(df_age, on="accident_id", how="left").merge(df_type, on="accident_id", how="left")
+    for col in ["element_1_age", "element_2_age", "element_3_age"]:
+        if col in df.columns:
+            group_col = col.replace("_age", "_age_group")
+            df[group_col] = pd.cut(df[col].fillna(-1), bins=AGE_BINS, labels=AGE_LABELS)
+    if "element_1_age_group" in df.columns:
+        df["age_group"] = df["element_1_age_group"]
 
     # severity flags from bad_uheld (one row per accident)
     bad = pd.read_excel(SEVERITY_FILE, header=2).rename(columns={"UHELDS_ID": "accident_id"})
@@ -192,9 +206,11 @@ def _build_accident(config):
     coords = pd.read_parquet(COORDS_FILE).rename(columns={"UHELDS_ID": "accident_id"})
     coords = coords[["accident_id", "KODE_UHELDKOMMUNE", "x", "y"]]
     df_acc = df_acc.merge(coords, on="accident_id", how="left")
+    df_acc["UHELDKOMMUNE"] = df_acc["KODE_UHELDKOMMUNE"]
     df_acc["kommune_group"] = df_acc["KODE_UHELDKOMMUNE"].map(KOMMUNE_GROUPS)
 
     df_acc["assigned_topic"] = df_acc["topic_main_0_3"]
+    df_acc["AAR"] = df_acc["year"]
     return df_acc
 
 

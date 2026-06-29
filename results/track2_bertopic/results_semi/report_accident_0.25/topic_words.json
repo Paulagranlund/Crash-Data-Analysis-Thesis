@@ -1,0 +1,380 @@
+{
+  "0": [
+    [
+      "væltede vognbane",
+      0.7981005311012268
+    ],
+    [
+      "vognbane bremsede",
+      0.7930612564086914
+    ],
+    [
+      "vognbane væltede",
+      0.7852673530578613
+    ],
+    [
+      "bremsede vognbane",
+      0.7805481553077698
+    ],
+    [
+      "holdt vognbane",
+      0.7586094737052917
+    ],
+    [
+      "vognbane stille",
+      0.7497773170471191
+    ],
+    [
+      "vognbane holdt",
+      0.7455992698669434
+    ],
+    [
+      "vognbane flugtede",
+      0.7359048128128052
+    ],
+    [
+      "stille vognbane",
+      0.7264105081558228
+    ],
+    [
+      "vognbane ukendt",
+      0.6969836950302124
+    ]
+  ],
+  "1": [
+    [
+      "flugtede cyklist",
+      0.7091214656829834
+    ],
+    [
+      "cyklist flugtede",
+      0.7057958245277405
+    ],
+    [
+      "cyklist væltede",
+      0.6600496768951416
+    ],
+    [
+      "flugtede væltede",
+      0.6499798893928528
+    ],
+    [
+      "væltede cyklist",
+      0.6484408974647522
+    ],
+    [
+      "væltede flugtede",
+      0.6359836459159851
+    ],
+    [
+      "flugtede vognbane",
+      0.6101636290550232
+    ],
+    [
+      "vognbane flugtede",
+      0.5778949856758118
+    ],
+    [
+      "cyklist holdt",
+      0.5686701536178589
+    ],
+    [
+      "cyklist ukendt",
+      0.5685148239135742
+    ]
+  ],
+  "2": [
+    [
+      "ukendt vognbane",
+      0.7916095852851868
+    ],
+    [
+      "vognbane ukendt",
+      0.7773972153663635
+    ],
+    [
+      "vognbane flugtede",
+      0.7351670861244202
+    ],
+    [
+      "holdt vognbane",
+      0.7229194641113281
+    ],
+    [
+      "flugtede vognbane",
+      0.7144849896430969
+    ],
+    [
+      "vognbane cyklist",
+      0.7088134288787842
+    ],
+    [
+      "cyklist vognbane",
+      0.7003820538520813
+    ],
+    [
+      "vognbane bremsede",
+      0.7001530528068542
+    ],
+    [
+      "vognbane holdt",
+      0.6991243362426758
+    ],
+    [
+      "vognbane",
+      0.697964608669281
+    ]
+  ],
+  "3": [
+    [
+      "bremsede ukendt",
+      0.7019427418708801
+    ],
+    [
+      "bremsede holdt",
+      0.7014147043228149
+    ],
+    [
+      "bremsede",
+      0.6994960904121399
+    ],
+    [
+      "bremsede bremsede",
+      0.6915525197982788
+    ],
+    [
+      "holdt bremsede",
+      0.6900961995124817
+    ],
+    [
+      "bremsede væltede",
+      0.688791811466217
+    ],
+    [
+      "ukendt bremsede",
+      0.684019148349762
+    ],
+    [
+      "væltede bremsede",
+      0.6671531796455383
+    ],
+    [
+      "bremsede cyklist",
+      0.6616047620773315
+    ],
+    [
+      "cyklist bremsede",
+      0.6305366158485413
+    ]
+  ],
+  "4": [
+    [
+      "cyklist væltede",
+      0.7192512154579163
+    ],
+    [
+      "væltede cyklist",
+      0.7166306376457214
+    ],
+    [
+      "cyklist bremsede",
+      0.6985429525375366
+    ],
+    [
+      "bremsede cyklist",
+      0.6967964768409729
+    ],
+    [
+      "cyklist holdt",
+      0.6950027346611023
+    ],
+    [
+      "væltede vognbane",
+      0.6654247045516968
+    ],
+    [
+      "bremsede væltede",
+      0.6508679389953613
+    ],
+    [
+      "vognbane væltede",
+      0.6362197399139404
+    ],
+    [
+      "holdt bremsede",
+      0.6250665187835693
+    ],
+    [
+      "vognbane bremsede",
+      0.6148836016654968
+    ]
+  ],
+  "5": [
+    [
+      "cyklist spiritus",
+      0.7527276873588562
+    ],
+    [
+      "spiritus cyklist",
+      0.7498871088027954
+    ],
+    [
+      "spiritus flugtede",
+      0.6960612535476685
+    ],
+    [
+      "flugtede spiritus",
+      0.6902614831924438
+    ],
+    [
+      "væltede spiritus",
+      0.6356450915336609
+    ],
+    [
+      "vognbane spiritus",
+      0.6258800029754639
+    ],
+    [
+      "spiritus væltede",
+      0.6247598528862
+    ],
+    [
+      "spiritus vognbane",
+      0.6154033541679382
+    ],
+    [
+      "spiritus bremsede",
+      0.59991455078125
+    ],
+    [
+      "bremsede spiritus",
+      0.596656322479248
+    ]
+  ],
+  "6": [
+    [
+      "parkeret fortsatte",
+      0.4658809304237366
+    ],
+    [
+      "ukendt parkeret",
+      0.4559921622276306
+    ],
+    [
+      "parkeret",
+      0.4473811686038971
+    ],
+    [
+      "flugt ukendt",
+      0.4227689206600189
+    ],
+    [
+      "fortsatte flugt",
+      0.3893651068210602
+    ],
+    [
+      "flugt",
+      0.37408170104026794
+    ],
+    [
+      "ukendt",
+      0.27135080099105835
+    ],
+    [
+      "fortsatte",
+      0.22302912175655365
+    ],
+    [
+      "",
+      0.14559607207775116
+    ],
+    [
+      "",
+      0.14559607207775116
+    ]
+  ],
+  "7": [
+    [
+      "ramte cyklist",
+      0.42674657702445984
+    ],
+    [
+      "cyklist forlod",
+      0.37251150608062744
+    ],
+    [
+      "cyklist",
+      0.3193463087081909
+    ],
+    [
+      "forlod flugt",
+      0.3156396150588989
+    ],
+    [
+      "flugt",
+      0.2957441806793213
+    ],
+    [
+      "ramte",
+      0.28448501229286194
+    ],
+    [
+      "forlod",
+      0.24810656905174255
+    ],
+    [
+      "flugt oplysninger",
+      0.2286311537027359
+    ],
+    [
+      "oplysninger ramte",
+      0.1974652260541916
+    ],
+    [
+      "",
+      0.14244143664836884
+    ]
+  ],
+  "8": [
+    [
+      "flugtede cyklist",
+      0.5849939584732056
+    ],
+    [
+      "flugtede væltede",
+      0.570246160030365
+    ],
+    [
+      "væltede flugtede",
+      0.5658116936683655
+    ],
+    [
+      "flugtede bremsede",
+      0.5452841520309448
+    ],
+    [
+      "væltede bremsede",
+      0.538351833820343
+    ],
+    [
+      "bremsede flugtede",
+      0.5362230539321899
+    ],
+    [
+      "cyklist bremsede",
+      0.5355877876281738
+    ],
+    [
+      "bremsede væltede",
+      0.5321319699287415
+    ],
+    [
+      "cyklist væltede",
+      0.5311863422393799
+    ],
+    [
+      "væltede cyklist",
+      0.5307944416999817
+    ]
+  ]
+}

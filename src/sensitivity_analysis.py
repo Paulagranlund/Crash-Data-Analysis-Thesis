@@ -92,7 +92,17 @@ def _pair_label(wa, wb):
 
 def _get_wordset(words_dict, topic_id, top_n=TOP_N_WORDS):
     entries = words_dict.get(str(topic_id), [])
-    return set(e["word"] for e in entries[:top_n])
+    words = []
+    for entry in entries[:top_n]:
+        if isinstance(entry, dict):
+            word = entry.get("word")
+        elif isinstance(entry, (list, tuple)) and entry:
+            word = entry[0]
+        else:
+            word = None
+        if word:
+            words.append(word)
+    return set(words)
 
 def _jaccard(set_a, set_b):
     if not set_a or not set_b:

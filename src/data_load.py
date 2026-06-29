@@ -46,19 +46,33 @@ def load_and_clean_accident_data(
         print("Loading all Excel files...")
 
     all_dfs = []
+    required_columns = set(COLUMN_RENAME_MAP)
 
-    for file in sorted(os.listdir(data_folder)):
-        if file.endswith(".xlsx"):
-            path = os.path.join(data_folder, file)
+    excel_paths = []
+    for dirpath, _, filenames in os.walk(data_folder):
+        for file in filenames:
+            if file.endswith(".xlsx") and not file.startswith("~$"):
+                excel_paths.append(os.path.join(dirpath, file))
+
+    for path in sorted(excel_paths):
+        rel_path = os.path.relpath(path, data_folder)
+        if verbose:
+            print(f"Loading: {rel_path}")
+        df_temp = pd.read_excel(path, header=2)
+        missing = required_columns.difference(df_temp.columns)
+        if missing:
             if verbose:
-                print(f"Loading: {file}")
-            df_temp = pd.read_excel(path, header=2)
-            df_temp = df_temp.rename(columns=COLUMN_RENAME_MAP)
-            df_temp = df_temp[list(COLUMN_RENAME_MAP.values())]
-            all_dfs.append(df_temp)
+                print(f"  skipping {rel_path}: missing accident columns {sorted(missing)}")
+            continue
+        df_temp = df_temp.rename(columns=COLUMN_RENAME_MAP)
+        df_temp = df_temp[list(COLUMN_RENAME_MAP.values())]
+        all_dfs.append(df_temp)
 
     if not all_dfs:
-        raise FileNotFoundError(f"No .xlsx files found in folder: {data_folder}")
+        raise FileNotFoundError(
+            f"No accident-level .xlsx files with columns {sorted(required_columns)} "
+            f"found under folder: {data_folder}"
+        )
 
     df = pd.concat(all_dfs, ignore_index=True)
 

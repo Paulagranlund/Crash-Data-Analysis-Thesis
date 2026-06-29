@@ -1,0 +1,5 @@
+transition,mean_norm_entropy,median_norm_entropy,std_norm_entropy,min,max,n_highly_concentrated,n_moderate,n_scattered,n_near_max
+0.1 → 0.15,0.964,0.965,0.014,0.92,0.986,0,0,0,41
+0.15 → 0.2,0.965,0.966,0.012,0.93,0.988,0,0,0,41
+0.2 → 0.25,0.964,0.971,0.021,0.881,0.988,0,0,0,41
+0.25 → 0.3,0.963,0.969,0.019,0.902,0.991,0,0,0,41

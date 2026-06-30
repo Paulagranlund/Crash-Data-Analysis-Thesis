@@ -7,17 +7,17 @@ Extraction and Pattern Discovery of Danish Police-Written Crash Narratives Using
 Domain-Specific Language Models and Semantic Topic Modelling*.
 
 The narratives, a free-text field written by police officers, and structured data has been accessed from Vejman.dk. 
-The project asks what the narratives reveal that the structured fields do not, and approaches it from two directions.
+The project investigates what information crash narratives contain beyond what is already captured in the structured fields, approaching the question from two complementary directions.
 
 ## Overview
 
-The work is organised into two tracks that share a common data layer.
+The project is organised into two complementary tracks built on the same underlying data.
 
 **Track 1 — supervised classification.** A fine-tuned Danish BERT
 (`Maltehb/danish-bert-botxo`) predicts the main crash situation
 (`main_situation_class`) directly from the narrative text. Integrated Gradients
 attribution shows which words drive each prediction, so the model's behaviour can
-be inspected rather than taken on trust.
+be inspected to enable transparency.
 
 **Track 2 — semantic topic modelling.** A BERTopic pipeline
 (`KennethTM/MiniLM-L6-danish-encoder` embeddings, UMAP, HDBSCAN, and c-TF-IDF), run both fully
@@ -31,10 +31,10 @@ structured data; they do not replace it.
 > **Important about the committed results:** the data and result files included in
 > this public repository are synthetic stand-ins. Any figures, topic labels,
 > metrics, topic assignments, or case-study outputs produced from them are only
-> examples showing that the code runs. They are **not** the thesis findings and
+> examples showing that the code runs. They are not the thesis findings and
 > should not be interpreted as crash-safety evidence.
 
-## 📂 Project structure
+## Project structure
 
 ```
 crash-narratives-nlp/
@@ -51,8 +51,14 @@ crash-narratives-nlp/
 │   │   ├── lable_analysis_1..4.xlsx # VD accident-level fields
 │   │   ├── bad_uheld.xlsx           # injury severity per element
 │   │   ├── df_coords.parquet        # kommune code + coordinates
+│   │   ├── df_coords.csv            # kommune code + coordinates, but in csv
 │   │   ├── drunk_driving_data.xlsx  # alcohol flag (case study)
-│   │   └── criminal_rates_with_codes.xlsx
+│   │   ├── criminal_rates_with_codes.xlsx
+│   │   ├── final_stopwords.txt      # stop words list
+│   │   ├── geodata.xlsx             # geographical data
+│   │   ├── municipalities.geojson   # geojson file with danish municipalities
+│   │   ├── vigepligt.xlsx           # file with yielding label
+│   │   └──df_final.csv              # data used for geographic analysis
 │   └── README.md                    # post-load schema
 │
 ├── src/                             # the toolbox: imported, never run directly
@@ -87,6 +93,8 @@ crash-narratives-nlp/
 │           ├── topic11_hit_and_run.ipynb
 │           ├── rear_end.ipynb
 │           ├── drunk_driving.ipynb
+│           ├── geoanalysis.ipynb
+│           ├── usecase1.ipynb 
 │           └── solo_bicycle_fall.ipynb
 │
 ├── models/                          # saved model weights (gitignored)
@@ -103,23 +111,23 @@ crash-narratives-nlp/
 The layout follows one rule that keeps it legible: every folder has a single
 role.
 
-`src/` is the **toolbox**. These modules are imported, never run on their own.
+`src/` is the toolbox. These modules are imported, never run on their own.
 The three loaders at the top (`data_load`, `split_data`, `embedding`) are shared
 by both tracks; `analysis_data` is the merger both tracks read through; the
 remaining modules hold the BERTopic and case-study logic; and `classification/`
 holds the Track 1 internals.
 
-`analysis/` is what you **run**. Each notebook opens, runs top to bottom, and
+`analysis/` is what you run. Each notebook opens, runs top to bottom, and
 produces output. They stay short because the heavy logic lives in `src/`.
 
-`data/`, `models/` and `results/` are **input and output**. You do not edit them
+`data/`, `models/` and `results/` are input and output. You do not edit them
 by hand; the notebooks read from `data/` and write into `models/` and
 `results/`. In this public copy, the committed files under `data/synthetic/` and
 `results/` are execution fixtures: they preserve the expected schema and folder
 layout, but their values are randomly generated stand-ins rather than valid
 research results.
 
-## 🧩 The two tracks
+## The two tracks
 
 ### Track 1 — classification
 
@@ -139,7 +147,7 @@ The remaining notebooks consume those outputs: the embedding benchmark, the
 hyperparameter and sensitivity exploration, the all-clusters appendix, and the
 four case studies.
 
-## 🗄️ Data and the merger
+## Data and the merger
 
 The real narratives come from the VD crash database and are access-restricted, so
 `data/raw/` ships empty and gitignored. Everything runs by default against
@@ -167,7 +175,7 @@ df_merged = build_analysis_dataframe(level="person")      # person-level rows
 `src/config.py` from `data/synthetic/...` to `data/raw/...`; nothing else
 changes. The post-load schema is documented in `data/README.md`.
 
-## 🛠️ Installation
+## Installation
 
 ```bash
 conda create -n crash-nlp python=3.10
@@ -181,7 +189,7 @@ pip install -r requirements.txt
 `scipy`, `matplotlib`, `seaborn`, `ruptures`, `statsmodels`, `openpyxl`,
 `pyarrow`.
 
-## 🚀 Running
+## Running
 
 **Track 1.** Open `analysis/track1_classification/bert_classification.ipynb` and
 run it top to bottom.
@@ -205,7 +213,7 @@ The notebooks use flat imports (`from analysis_data import ...`); each one begin
 with a short setup cell that puts `src/` on the path automatically, so they run
 correctly from any working directory.
 
-## 📊 Outputs
+## Outputs
 
 * **Model checkpoints** → `models/`
 * **Track 1 metrics, confusion matrix, IG tables** → `results/track1_classification/`
@@ -218,7 +226,7 @@ outputs are placeholders. They confirm that the pipeline executes and that files
 are written in the expected format; they do not contain the validated numbers,
 figures, clusters, or conclusions from the thesis.
 
-## 📦 `src/` module reference
+## `src/` module reference
 
 | Module | Role |
 | ------ | ---- |
